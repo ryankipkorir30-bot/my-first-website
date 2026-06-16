@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boizy Chacha</title>
+<style>
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#d0f8ff;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+/*Both pages hidden by default*/
+.page{
+display:none;
+width:100%;
+max-width:400px;
+padding:20px;
+}
+.page.active{
+display:block;
+}
+/*Login box*/
+.login-box{
+background:white;
+padding:30px;
+border-radius:10px;
+box-shadow:0 4px 10px rgba(0,0,0,0.2);
+}
+input{
+width:100%;
+padding:12px;
+margin:10px 0;
+border:1px solid #ccc;
+border-radius:5px;
+box-sizing:border-box;
+}
+button{
+width:100%;
+padding:12px;
+background:#8b4513;
+color:white;
+border:none;
+border-radius:5px;
+font-size:16px;
+cursor:pointer;
+margin-top:10px;
+}
+button:hover{
+background:#654321;
+}
+.error{
+color:red;
+font-size:14px;
+display:none;
+}
+/*Dashboard*/
+.dashboard{
+background:white;
+padding:30px;
+border-radius:10px;
+box-shadow:0 4px 10px rgba(0,0,0,0.2);
+text-align:center;
+}
+</style>
+</head>
+<body>
+
+<!--PAGE 1:LOGIN-shows first-->
+<div id="loginPage"class="page active">
+  <div class="login-box">
+    <h2 style="text-align:center">Gospel of Jah</h2>
+    <p style="text-align:center">login to continue</p>
+    <label for="email"></label><input type="email" id="email" placeholder="email" required>
+    <input id="password" placeholder="password" required type="password">
+    <p class="error"id="errorMsg">Erong email or password</p>
+    <button onclick="login()">Login</button>
+    <p style="font-size:12px;color:gray;margin-top:15px">Demo login:admin@</p>
+    <p style="font-size:12px;color:gray;margin-top:15px">email.com.com/1234</p>
+  </div>
+</div>
+<!--PAGE 2:DASHBOARD-hidden until login-->
+<div id="dashboardPage"class="page">
+  <div class="dashboard">
+    <h1>Welcome to Dashboard</h1>
+    <p>Praise Jah!You are logged in.</p>
+    <svg width="200"height="200">
+      <rect fill="tan" height="120" stroke="brown" stroke-width="4" width="160" x="20" y="80"/>
+      <polygon points="100,20 20,80 180,80"fill="red"stroke="brown"stroke-width="4"/>
+      <rect x="20"y="80"width="160"height="120"fill="#654321"/>
+    </svg>
+    <p>Here you can add your Gospel songs,beats,etc.</p>
+    <button class="logOut" onclick="logout()">logOut</button>
+  </div>
+</div>
+<script>
+//Demo logindetails
+const DEMO_EMAIL="admin@email.com";
+const DEMO_PASSWORD="1234";
+function login(){
+const email=document.getElementById("email").value;
+const password=document.getElementById("password").value;
+const errorMsg=document.getElementById("errorMsg");
+//Check if email+password match 
+if(email===DEMO_EMAIL && password===DEMO_PASSWORD) {
+  document.getElementById("loginPage").classList.remove("active");
+  document.getElementById("dashboardPage").classList.add("active");
+  errorMsg.style.display = "none";
+}else{
+  errorMsg.style.display="block";
+}
+}
+function logout(){
+document.getElementById("dashboardPage").classList.remove("active");
+document.getElementById("loginPage").classList.add("active");
+document.getElementById("email").value="";
+document.getElementById("password").value="";
+}
+//press enter to login
+document.addEventlistener("keypress",function(e){
+if(e.key==="Enter"){
+login();
+}
+});
+</script>
+</body>
+</html>
